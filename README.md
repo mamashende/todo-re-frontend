@@ -1,50 +1,55 @@
-# React + TypeScript + Vite
+# Todolist 前端部分简要介绍
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## 项目概述
 
-Currently, two official plugins are available:
+本 Todolist 前端项目旨在提供一个功能全面的任务管理解决方案，通过一系列精心设计的组件，实现任务的高效组织、管理和跟踪。该项目结合了现代前端技术，注重用户体验，支持多 Tab 切换、任务折叠与拖动、日期选择等实用功能。
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 核心组件与功能
 
-## Expanding the ESLint configuration
+### 1. 页面上边栏弹窗组件
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+* **功能**：用于显示后端返回的信息，包括成功提示和错误警告。用户可以通过该弹窗组件及时获取操作反馈。
+* **交互**：支持`onClose`事件，用户可点击关闭按钮或弹窗外部区域关闭弹窗。
 
-- Configure the top-level `parserOptions` property like this:
+### 2. TopicTabBar 组件
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+* **功能**：实现多 Topic 管理，每个 Topic 拥有独立的 Tab 页面，便于用户切换和查看不同主题下的任务。
+* **特点**：支持多 Tab 同时展示和单个 Tab 间切换，提高任务管理的灵活性和便捷性。
+* **交互**：通过`onTabChange`事件处理 Tab 切换操作。
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+### 3. CollapsibleTodoList 组件
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+* **功能**：包含可折叠、可拖动的 Todo 组件，用户可以根据需要展开或折叠任务详情，以及在不同 Todolist 中移动任务。
+* **特点**：
+  * **折叠状态**：仅显示任务标题和截止日期（如有），节省空间。
+  * **展开状态**：显示任务全部详细信息，便于用户查看和编辑。
+  * **操作**：提供删除和编辑按钮，支持任务管理的基本操作。
+  * **可选功能**：支持拖动功能和自动按截止日期排序，提高任务管理的效率和灵活性。
+* **交互**：通过`onDelete`、`onEdit`和`onDrag`事件处理删除、编辑和拖动操作。
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+### 4. TodoEditorBar 组件
+
+* **功能**：支持创建和编辑 Topic 以及 Todo，提供统一的编辑界面，简化用户操作流程。
+* **触发**：通过 Add 按钮触发，进入编辑模式。
+* **交互**：通过`onAdd`和`onEdit`事件处理添加和编辑操作。
+
+### 5. Calendar 组件（可选）
+
+* **功能**：提供日历视图，支持用户选择日期，便于为任务设置截止日期。
+* **交互**：通过`onDateSelect`事件处理日期选择操作。
+
+### 6. TopBar 组件（可选）
+
+* **功能**：显示应用的顶栏信息，包括应用标题和菜单项，提供导航和设置功能。
+* **交互**：通过`onMenuClick`事件处理菜单点击操作。
+
+### 7. SideBar 组件（可选）
+
+* **功能**：显示应用的侧边栏信息，包括侧边栏项目列表和当前激活的项目，便于用户快速导航和切换功能。
+* **交互**：通过`onItemClick`事件处理项目点击操作。
+
+
+
+## 部署
+
+部署时参考cloudflare pages文档  [https://developers.cloudflare.com/pages/](https://developers.cloudflare.com/pages/)
