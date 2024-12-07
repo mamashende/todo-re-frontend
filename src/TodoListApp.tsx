@@ -90,11 +90,10 @@ const  TodoListApp: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    if (topics.length > 0) {
+    if (topics.length > 0 && selectedTopic === null) {
       setSelectedTopic(Number(topics[0].id));
-      
     }
-  }, [topics]);
+  }, [topics, selectedTopic]);
   /* useEffect(()=>{
     console.log('update topics:' , topics);
   },[topics]); */
@@ -111,25 +110,31 @@ const  TodoListApp: React.FC = () => {
   },[selectedTopic, topics]);
   //debug
 
-
+  const [isUpdatingTopics, setIsUpdatingTopics] = useState<boolean>(false);
   const handleAddTopic = async (topicTitle: string, topicContent?: string) => {
     const tempId = Date.now();
     const newTopic = { id: tempId, topicTitle, topicContent };
     setTopics([...topics, newTopic]);
     //console.log(newTopic);
+    setIsUpdatingTopics(true);
     try {
       const response = await apiClient.post('/topics', { topicTitle, topicContent });
-      //const { updateData } = response.data;
       const trueId = response.data.id;
-      setTopics(prevTopics => prevTopics.map(topic => topic.id === tempId ? { ...topic, trueId } : topic));
+      setTopics(prevTopics => prevTopics.map(topic => topic.id === tempId ? { ...topic, id: trueId } : topic));
     } catch (error) {
       console.error(error);
       setTopics(prevTopics => prevTopics.filter(topic => topic.id !== tempId));
+    } finally {
+      setIsUpdatingTopics(false);
     }
   };
 
   const handleAddTodo = async (todoTitle: string, todoContent?: string, deadline?: Date) => {
     //console.log('aftehandle',todos);
+    if (isUpdatingTopics) {
+      console.log('Topics are being updated, please wait.');
+      return;
+    }
     if (selectedTopic === null) return;
     const tempId = Date.now();
     const defaultDeadline = new Date('1970-01-01');
