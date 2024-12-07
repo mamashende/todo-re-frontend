@@ -1,12 +1,13 @@
 import './App.css'
-import Todolist from './todolist.tsx'
+import TodoListApp from './TodoListApp.tsx'
+
 
 function App() {
   
 
   return (
     <>
-      <Todolist />
+      <TodoListApp />
     </>
   )
 }
