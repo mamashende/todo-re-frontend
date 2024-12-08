@@ -75,7 +75,13 @@ const  TodoListApp: React.FC = () => {
       .then(function (response) {
         // handle success
         //console.log(response);
-        setTopics(response.data.topics);
+        const topicsData = response.data.topics.map((topic : Topic) => ({
+          id : Number(topic.id),
+          topicTitle : String(topic.topicTitle),
+          topicContent : String(topic.topicContent)
+
+        }));
+        setTopics(topicsData);
       })
       .catch(function (error) {
         // handle error
